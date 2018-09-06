@@ -1,0 +1,9 @@
+---
+# defaults file for ansible-role-ohpc-finish
+
+ohpc_ww_file_import:
+  - /etc/passwd
+  - /etc/group
+  - /etc/shadow
+  - /etc/slurm/slurm.conf
+  - /etc/munge/munge.key
