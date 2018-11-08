@@ -33,4 +33,4 @@
   command: wwsh dhcp update
 
 - name: restart dhcpd
-  service: name=dhcpd state=restarted
+  service: name=dhcpd state=restarted enabled=yes
