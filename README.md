@@ -9,8 +9,8 @@ Requirements
 
 The ansible inventory should have a host group called "ohpc_images"
 which is a list of chroot's for the OpenHPC/Warewulf images. Another
-host group called "compute" should contain host names/MAC of compute
-nodes.
+host group called "ohpc_compute" should contain host names/MAC of
+compute nodes.
 
 Role Variables
 --------------
@@ -23,19 +23,22 @@ Role Variables
   deploying to managed nodes.
 
 
-Dependencies
-------------
+Example hosts entries
+---------------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+        [ohpc_images:children]
+        ohpc_images_compute
+        
+        [ohpc_images_compute]
+        /opt/ohpc/admin/images/compute
+        
+        [ohpc_compute:children]
+        ohpc-compute-1disk
+        
+        [ohpc-compute-1disk]
+        node1 int_ip_addr=10.10.0.1 mac_address=xx:xx:xx:xx:xx:xx ib_ip_addr=10.11.0.1 ip_last=0.1 nhc_hw_eth=eth0
+        node2 int_ip_addr=10.10.0.2 mac_address=yy:yy:yy:yy:yy:yy ib_ip_addr=10.11.0.2 ip_last=0.2 nhc_hw_ib=40 nhc_hw_eth=eth0
 
-Example Playbook
-----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
 
 License
 -------
