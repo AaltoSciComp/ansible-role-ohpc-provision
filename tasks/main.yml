@@ -18,7 +18,7 @@
   with_items: "{{ groups.ohpc_images }}"
 
 - name: add node to ww db if it doesn't already exist
-  shell: wwsh node list {{ item }} >/dev/null || wwsh -y node new {{ item }} --ipaddr={{ hostvars[item]['int_ip_addr'] }} --hwaddr={{ hostvars[item]['mac_address'] }} -D {{ hostvars[item]['internal_interface'] }}
+  shell: wwsh node list {{ item }} >/dev/null || wwsh -y node new {{ item }} --ipaddr={{ hostvars[item]['int_ip_addr'] }} --hwaddr={{ hostvars[item]['mac_address'] }} -D {{ hostvars[item]['internal_interface'] }} --netmask={{ hostvars[item]['int_net_mask'] }} --gateway={{ hostvars[item]['int_gateway'] }}
   with_items: "{{ groups.ohpc_compute }}"
 
 # TODO: how to set vnfs image???
