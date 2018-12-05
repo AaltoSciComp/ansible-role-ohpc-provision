@@ -26,6 +26,14 @@
   with_items: "{{ groups.ohpc_compute }}"
   when: hostvars[item]['ib_ip_addr'] is defined
 
+- name: Install ifcfg-ib0
+  command: wwsh -y file set ifcfg-ib0.ww --path=/etc/sysconfig/network-scripts/ifcfg-ib0
+
+- name: Provision ifcfg-ib0
+  command: wwsh -y provision set {{ item }} --fileadd=ifcfg-ib0.ww
+  with_items: "{{ groups.ohpc_compute }}"
+  when: hostvars[item]['ib_ip_addr'] is defined
+
 # TODO: how to set vnfs image???
 - name: set files to provision
   command: wwsh -y provision set {{ item }} --vnfs=compute --bootstrap={{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }} --files={{','.join(ohpc_ww_file_import) }} --console=ttyS0,115200  --kargs="selinux=0 net.ifnames=1" --postnetdown=1
