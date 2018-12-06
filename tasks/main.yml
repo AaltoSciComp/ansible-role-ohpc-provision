@@ -33,6 +33,7 @@
   command: wwsh -y provision set {{ item }} --fileadd=ifcfg-ib0.ww
   with_items: "{{ groups.ohpc_compute }}"
   when: hostvars[item]['ib_ip_addr'] is defined
+  ignore_errors: True
 
 # TODO: how to set vnfs image???
 - name: set files to provision

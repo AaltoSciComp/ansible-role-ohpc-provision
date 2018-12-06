@@ -7,3 +7,6 @@ ohpc_ww_file_import:
   - /etc/shadow
   - /etc/slurm/slurm.conf
   - /etc/munge/munge.key
+
+lustre_client_enabled: False
+lustre_network_devices: []
