@@ -1,0 +1,13 @@
+#!/bin/bash
+
+while
+    stat {{ ssh_host_keys_dir }} >/dev/null 2>&1
+    retval=$?
+    [[ $retval -ne 0 ]]
+do
+    sleep 1
+done
+
+if [ -f {{ ssh_host_keys_dir }}/$HOSTNAME/ssh/ssh_host_ed25519_key ]; then
+    cp {{ ssh_host_keys_dir }}/$HOSTNAME/ssh/ssh_host_ed25519_key{,.pub} /etc/ssh
+fi

@@ -13,6 +13,27 @@
   command: wwsh file import {{ item }}
   with_items: "{{ ohpc_ww_file_import }}"
 
+- name: Template script to install the FGCI SSH host keys
+  template:
+    src: install-fgci-ssh-host-keys.sh.j2
+    dest: "{{ item }}/usr/local/sbin/install-fgci-ssh-host-keys.sh"
+    mode: 0700
+    owner: root
+    group: root
+  with_items: "{{ groups.ohpc_images }}"
+
+- name: Run the FGCI SSH host key script from rc.local
+  lineinfile:
+    path: "{{ item }}/etc/rc.d/rc.local"
+    line: '/usr/local/sbin/install-fgci-ssh-host-keys.sh'
+  with_items: "{{ groups.ohpc_images }}"
+
+- name: Make sure rc.local is executable
+  file:
+    path: "{{ item }}/etc/rc.d/rc.local"
+    mode: 0744
+  with_items: "{{ groups.ohpc_images }}"
+
 - name: Create the WW vnfs images
   command: wwvnfs -y --chroot "{{ item }}"
   with_items: "{{ groups.ohpc_images }}"
