@@ -1,5 +1,5 @@
 ---
-# defaults file for ansible-role-ohpc-finish
+# defaults file for ansible-role-ohpc-provision
 
 ohpc_ww_file_import:
   - /etc/passwd
