@@ -10,7 +10,7 @@
   shell: wwbootstrap "{{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }}"
 
 - name: Import ww files
-  command: wwsh file import {{ item }}
+  command: wwsh -y file import {{ item }}
   with_items: "{{ ohpc_ww_file_import }}"
 
 - name: Template script to install the FGCI SSH host keys
