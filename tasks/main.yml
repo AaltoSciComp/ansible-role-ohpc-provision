@@ -58,7 +58,7 @@
 
 # TODO: how to set vnfs image???
 - name: set files to provision
-  command: wwsh -y provision set {{ item }} --vnfs=compute --bootstrap={{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }} --files={{','.join(ohpc_ww_file_import) }} --console=ttyS0,115200  --kargs="selinux=0 net.ifnames=1" --postnetdown=1
+  command: wwsh -y provision set {{ item }} --vnfs=compute --bootstrap={{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }} --files={{ ohpc_ww_file_import | map('basename') | list | join(',') }} --console=ttyS0,115200  --kargs="selinux=0 net.ifnames=1" --postnetdown=1
   with_items: "{{ groups.ohpc_compute }}"
 
 - name: wwsh pxe update
