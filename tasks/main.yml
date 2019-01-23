@@ -54,6 +54,11 @@
   command: wwsh -y provision set {{ item }} --vnfs={{ hostvars[item]['ohpc_image'] }} --bootstrap={{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }} --files={{ ohpc_ww_file_import | map('basename') | list | join(',') }} --console=ttyS0,115200  --kargs="selinux=0 net.ifnames=1" --postnetdown=1
   with_items: "{{ groups.ohpc_compute }}"
 
+- name: Setup local disk for stateful nodes
+  command: wwsh -y provision set --bootloader=sda --filesystem={{ hostvars[item]['filesystem'] }} {{ item }}
+  when: hostvars[item]['filesystem'] is defined
+  with_items: "{{ groups.ohpc_compute }}"
+
 - name: wwsh pxe update
   command: wwsh pxe update
 
