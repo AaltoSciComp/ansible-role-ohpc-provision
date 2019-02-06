@@ -40,7 +40,7 @@
 - name: Run fix-nhc.py from rc.local
   lineinfile:
     path: "{{ item }}/etc/rc.d/rc.local"
-    line: '/usr/local/sbin/fix-nhc.py'
+    line: '/usr/local/sbin/fix-nhc.py /etc/nhc/nhc.conf'
   loop: "{{ groups.ohpc_images }}"
 
 - name: Make sure rc.local is executable
