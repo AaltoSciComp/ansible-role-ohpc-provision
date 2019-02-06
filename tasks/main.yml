@@ -28,6 +28,21 @@
     line: '/usr/local/sbin/install-fgci-ssh-host-keys.sh'
   with_items: "{{ groups.ohpc_images }}"
 
+- name: Copy the fix-nhc.py script
+  copy:
+    src: fix-nhc.py
+    dest: "{{ item }}/usr/local/sbin/fix-nhc.py"
+    mode: 0700
+    owner: root
+    group: root
+  loop: "{{ groups.ohpc_images }}"
+
+- name: Run fix-nhc.py from rc.local
+  lineinfile:
+    path: "{{ item }}/etc/rc.d/rc.local"
+    line: '/usr/local/sbin/fix-nhc.py'
+  loop: "{{ groups.ohpc_images }}"
+
 - name: Make sure rc.local is executable
   file:
     path: "{{ item }}/etc/rc.d/rc.local"
