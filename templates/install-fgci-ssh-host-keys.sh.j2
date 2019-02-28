@@ -8,6 +8,7 @@ do
     sleep 1
 done
 
-if [ -f {{ ssh_host_keys_dir }}/$HOSTNAME/ssh/ssh_host_ed25519_key ]; then
-    cp {{ ssh_host_keys_dir }}/$HOSTNAME/ssh/ssh_host_ed25519_key{,.pub} /etc/ssh
+hname=$(hostname -s)
+if [ -f {{ ssh_host_keys_dir }}/"${hname}"/ssh/ssh_host_ed25519_key ]; then
+    cp {{ ssh_host_keys_dir }}/"${hname}"/ssh/ssh_host_ed25519_key{,.pub} /etc/ssh
 fi
