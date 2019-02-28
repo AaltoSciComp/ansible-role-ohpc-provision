@@ -49,12 +49,6 @@
     mode: 0744
   with_items: "{{ groups.ohpc_images }}"
 
-- name: Delete yum cache before creating vnfs images
-  file:
-    path: "{{ item }}/var/cache/yum"
-    state: absent
-  loop: "{{ groups.ohpc_images }}"
-
 - name: Create the WW vnfs images
   command: wwvnfs -y --chroot "{{ item }}"
   with_items: "{{ groups.ohpc_images }}"
