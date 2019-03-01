@@ -50,7 +50,7 @@
   loop: "{{ groups.ohpc_images }}"
 
 - name: Create the WW vnfs images
-  command: wwvnfs -y --chroot "{{ item }}"
+  command: wwvnfs --chroot "{{ item }}"
   loop: "{{ groups.ohpc_images }}"
 
 - name: add node to ww db if it does not already exist
