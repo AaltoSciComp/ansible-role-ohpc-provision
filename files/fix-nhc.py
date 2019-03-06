@@ -58,5 +58,5 @@ with infile.open() as inf:
             if hca != None and (hca in hca2speed):
                 l = re.sub(r'check_hw_ib .*', r'check_hw_ib {}'.format(hca2speed[hca]), l)
             of.write(l)
-        os.replace(of.name, str(infile))
+    os.replace(of.name, str(infile))
 
