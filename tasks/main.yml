@@ -25,7 +25,7 @@
 - name: Run the FGCI SSH host key script from rc.local
   lineinfile:
     path: "{{ item }}/etc/rc.d/rc.local"
-    line: '/usr/local/sbin/install-fgci-ssh-host-keys.sh'
+    line: 'timeout 60 /usr/local/sbin/install-fgci-ssh-host-keys.sh'
   loop: "{{ groups.ohpc_images }}"
 
 - name: Copy the fix-nhc.py script
