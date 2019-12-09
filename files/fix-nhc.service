@@ -7,3 +7,6 @@ Type=oneshot
 RemainAfterExit=yes
 ExecStart=/usr/local/sbin/fix-nhc.py /etc/nhc/nhc.conf
 TimeoutSec=60
+
+[Install]
+WantedBy=multi-user.target
