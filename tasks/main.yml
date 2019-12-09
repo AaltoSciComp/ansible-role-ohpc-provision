@@ -50,10 +50,17 @@
     group: root
   loop: "{{ groups.ohpc_images }}"
 
-- name: Run fix-nhc.py from rc.local
-  lineinfile:
-    path: "{{ item }}/etc/rc.d/rc.local"
-    line: '/usr/local/sbin/fix-nhc.py /etc/nhc/nhc.conf'
+- name: Install systemd unit file for fix-nhc script
+  copy:
+    src: fix-nhc.service
+    dest: "{{ item }}/etc/systemd/system/fix-nhc.service"
+    mode: 0664
+    owner: root
+    group: root
+  loop: "{{ groups.ohpc_images }}"
+
+- name: Enable fix-nhc unit
+  command: "systemd-nspawn -D {{ item }} systemctl enable fix-nhc"
   loop: "{{ groups.ohpc_images }}"
 
 - name: Make sure rc.local is executable
