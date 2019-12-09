@@ -4,5 +4,6 @@ After=network-online.target
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/local/sbin/install-fgci-ssh-host-keys.sh
 TimeoutSec=60

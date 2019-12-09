@@ -4,5 +4,6 @@ After=local-fs.target
 
 [Service]
 Type=oneshot
+RemainAfterExit=yes
 ExecStart=/usr/local/sbin/fix-nhc.py /etc/nhc/nhc.conf
 TimeoutSec=60
