@@ -13,12 +13,6 @@
   command: wwsh -y file import {{ item }}
   loop: "{{ ohpc_ww_file_import }}"
 
-- name: If network is not up, start it (some race condition on Cascade Lake nodes with i40e driver)
-  lineinfile:
-    path: "{{ item }}/etc/rc.d/rc.local"
-    line: 'if ! systemctl status network > /dev/null; then systemctl start network; fi'
-  loop: "{{ groups.ohpc_images }}"
-
 - name: Template script to install the FGCI SSH host keys
   template:
     src: install-fgci-ssh-host-keys.sh.j2
@@ -61,6 +55,12 @@
 
 - name: Enable fix-nhc unit
   command: "systemd-nspawn -D {{ item }} systemctl enable fix-nhc"
+  loop: "{{ groups.ohpc_images }}"
+
+- name: If network is not up, start it (some race condition on Cascade Lake nodes with i40e driver)
+  lineinfile:
+    path: "{{ item }}/etc/rc.d/rc.local"
+    line: 'if ! systemctl status network > /dev/null; then systemctl start network; fi'
   loop: "{{ groups.ohpc_images }}"
 
 - name: Make sure rc.local is executable
