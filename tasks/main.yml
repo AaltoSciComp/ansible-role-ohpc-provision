@@ -28,10 +28,17 @@
     group: root
   loop: "{{ groups.ohpc_images }}"
 
-- name: Run the FGCI SSH host key script from rc.local
-  lineinfile:
-    path: "{{ item }}/etc/rc.d/rc.local"
-    line: 'timeout 60 /usr/local/sbin/install-fgci-ssh-host-keys.sh'
+- name: Install systemd unit file for FGCI ssh host key script
+  copy:
+    src: install-fgci-ssh-host-keys.service
+    dest: "{{ item }}/etc/systemd/system/install-fgci-ssh-host-keys.service"
+    mode: 0664
+    owner: root
+    group: root
+  loop: "{{ groups.ohpc_images }}"
+
+- name: Enable FGCI SSH host key unit
+  command: "systemd-nspawn -D {{ item }} systemctl enable install-fgci-ssh-host-keys"
   loop: "{{ groups.ohpc_images }}"
 
 - name: Copy the fix-nhc.py script

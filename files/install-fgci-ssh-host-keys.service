@@ -1,0 +1,10 @@
+[Unit]
+Description=Install FGCI SSH host keys
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/install-fgci-ssh-host-keys.sh
+KillMode=process
+Restart=on-failure
+TimeOutSec=60
