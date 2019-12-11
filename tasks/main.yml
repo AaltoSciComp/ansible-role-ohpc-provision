@@ -86,7 +86,7 @@
   when: hostvars[item]['ib_ip_addr'] is defined
 
 - name: set files to provision
-  command: wwsh -y provision set {{ item }} --vnfs={{ hostvars[item]['ohpc_image'] }} --bootstrap={{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }} --files={{ ohpc_ww_file_import | map('basename') | list | join(',') }} --console=ttyS0,115200  --kargs="selinux=0 net.ifnames=1" --postnetdown=1
+  command: wwsh -y provision set {{ item }} --vnfs={{ hostvars[item]['ohpc_image'] }} --bootstrap={{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }} --files={{ ohpc_ww_file_import | map('basename') | list | join(',') }} --console=ttyS0,115200  --kargs="selinux=0 net.ifnames=1 spectre_v2=retpoline" --postnetdown=1
   loop: "{{ groups.ohpc_compute }}"
 
 - name: Setup local disk for stateful nodes
