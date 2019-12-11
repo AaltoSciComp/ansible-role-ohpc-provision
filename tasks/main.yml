@@ -13,6 +13,9 @@
   command: wwsh -y file import {{ item }}
   loop: "{{ ohpc_ww_file_import }}"
 
+- name: Install ifcfg-ib0
+  command: wwsh -y file set ifcfg-ib0.ww --path=/etc/sysconfig/network-scripts/ifcfg-ib0
+
 - name: Template script to install the FGCI SSH host keys
   template:
     src: install-fgci-ssh-host-keys.sh.j2
@@ -81,9 +84,6 @@
   command: wwsh -y node set {{ item }} -D ib0 --ipaddr={{ hostvars[item]['ib_ip_addr'] }} --netmask={{ hostvars[item]['ib_net_mask'] }}
   loop: "{{ groups.ohpc_compute }}"
   when: hostvars[item]['ib_ip_addr'] is defined
-
-- name: Install ifcfg-ib0
-  command: wwsh -y file set ifcfg-ib0.ww --path=/etc/sysconfig/network-scripts/ifcfg-ib0
 
 - name: set files to provision
   command: wwsh -y provision set {{ item }} --vnfs={{ hostvars[item]['ohpc_image'] }} --bootstrap={{ ohpc_build_kernel_ver | default(running_kernel_version.stdout) }} --files={{ ohpc_ww_file_import | map('basename') | list | join(',') }} --console=ttyS0,115200  --kargs="selinux=0 net.ifnames=1" --postnetdown=1
