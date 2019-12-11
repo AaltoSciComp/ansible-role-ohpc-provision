@@ -36,8 +36,8 @@ Example hosts entries
         ohpc-compute-1disk
         
         [ohpc-compute-1disk]
-        node1 int_ip_addr=10.10.0.1 mac_address=xx:xx:xx:xx:xx:xx ib_ip_addr=10.11.0.1 ip_last=0.1 nhc_hw_eth=eth0
-        node2 int_ip_addr=10.10.0.2 mac_address=yy:yy:yy:yy:yy:yy ib_ip_addr=10.11.0.2 ip_last=0.2 nhc_hw_ib=40 nhc_hw_eth=eth0
+        node1 int_ip_addr=10.10.0.1 mac_address=xx:xx:xx:xx:xx:xx ib_ip_addr=10.11.0.1 internal_interface=eno1 ohpc_image=compute
+        node2 int_ip_addr=10.10.0.2 mac_address=yy:yy:yy:yy:yy:yy ib_ip_addr=10.11.0.2 nhc_hw_ib=40 internal_interface=eno1 ohpc_image=gpu filesystem=foo
 
 
 License
