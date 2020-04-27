@@ -66,6 +66,13 @@
     line: 'if ! systemctl status network > /dev/null; then systemctl start network; fi'
   loop: "{{ groups.ohpc_images }}"
 
+# See https://blog.nelhage.com/post/transparent-hugepages/ for details
+- name: disable transparent hugepages
+  lineinfile:
+    path: "{{ item }}/etc/rc.d/rc.local"
+    line: 'echo madvise | sudo tee /sys/kernel/mm/transparent_hugepage/enabled'
+  loop: "{{ groups.ohpc_images }}"
+
 - name: Make sure rc.local is executable
   file:
     path: "{{ item }}/etc/rc.d/rc.local"
