@@ -1,6 +1,6 @@
 [Unit]
 Description=Install FGCI SSH host keys
-After=network-online.target remote-fs.target rpcbind.target
+After=network-online.target remote-fs.target rpcbind.target rc-local.service
 
 [Service]
 Type=oneshot
