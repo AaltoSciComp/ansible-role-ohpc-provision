@@ -7,6 +7,7 @@
 # First, the HCA type -> speed table. Add to this when new hardware arrives!
 hca2speed = { 'MT4099': 56,
               'MT25418': 40,
+              'MT4103': 56,
               'MT4115': 56,
               'MT26428': 40,
               'MT26438': 40,
